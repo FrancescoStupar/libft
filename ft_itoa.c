@@ -6,67 +6,59 @@
 /*   By: fstupar <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 10:43:37 by fstupar           #+#    #+#             */
-/*   Updated: 2021/11/04 12:19:59 by fstupar          ###   ########.fr       */
+/*   Updated: 2021/11/06 14:04:47 by fstupar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	numlen(int n)
+static int	printnum(int n)
 {
-	int	g;
+	int	c;
 
-	g = 1;
-	while (n >= 10)
+	c = 0;
+	if (n == 0)
 	{
-		n = n / 10;
-		g++;
+		c = 1;
+		return (c);
 	}
-	return (g);
-}
-
-static char	*function(char *number, int n, int g)
-{
-	int	f;
-
-	f = numlen(n);
-	number[f] = '\0';
-	if (g == 0)
-		f--;
-	while (n >= 10)
+	if (n < 0)
+		c++;
+	while (n)
 	{
-		number[f] = (n % 10) + '0';
-		f--;
+		c++;
 		n = n / 10;
 	}
-	number[f] = n + '0';
-	if (g == 1)
-		number[0] = '-';
-	return (number);
+	return (c);
 }
 
 char	*ft_itoa(int n)
 {
-	char	*number;
-	int		g;
-	int		i;
+	char	*p;
+	int		b;
 
-	i = 1;
-	g = 0;
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
+	b = printnum(n);
+	p = (char *)malloc(sizeof(char) * (b + 1));
+	if (p == 0)
+		return (0);
+	if (n == 0)
+		p[0] = '0';
+	p[b] = '\0';
 	if (n < 0)
 	{
-		n = n * -1;
-		g = 1;
-		i = 2;
+		p[0] = '-';
+		n = -n;
 	}
-	number = (char *)malloc(sizeof(char) * numlen(n) + i);
-	if (number == NULL)
-		return (NULL);
-	number = function(number, n, g);
-	return (number);
+	while (n != 0 && b >= 0)
+	{
+		p[b-- - 1] = n % 10 + '0';
+		n /= 10;
+	}
+	return (p);
 }
+
 /*
 int main()
 {

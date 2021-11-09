@@ -6,7 +6,7 @@
 /*   By: fstupar <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 12:30:19 by fstupar           #+#    #+#             */
-/*   Updated: 2021/11/04 12:33:01 by fstupar          ###   ########.fr       */
+/*   Updated: 2021/11/06 13:59:59 by fstupar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	void	*ptr;
+	void	*p;
 
-	ptr = (void *)malloc(size * count);
-	if (ptr == NULL)
+	p = malloc(count * size);
+	if (!p)
 		return (NULL);
-	ft_bzero(ptr, count);
-	return (ptr);
+	ft_memset(p, 0, (count * size));
+	return (p);
 }
